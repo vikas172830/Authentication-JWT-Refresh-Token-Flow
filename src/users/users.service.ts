@@ -5,7 +5,7 @@ import { createUserDto } from './dto/createUser.dto';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User) private readonly users: typeof User) {}
+  constructor(@InjectModel(User) private readonly users: typeof User) { }
 
   create(dto: createUserDto) {
     return this.users.create(dto as any);
@@ -13,12 +13,5 @@ export class UsersService {
 
   findByEmail(email: string) {
     return this.users.findOne({ where: { email } });
-  }
-
-  updateRefreshToken(userId: number, refreshToken: string) {
-    return this.users.update(
-      { refreshToken: refreshToken },
-      { where: { id: userId } },
-    );
   }
 }

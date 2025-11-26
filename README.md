@@ -59,9 +59,27 @@ Base path: `http://localhost:3000/auth`
 
 | Endpoint | Body | Description |
 | --- | --- | --- |
-| `POST /register` | `{ "email": "user@example.com", "password": "P@ssw0rd" }` | Creates a user, stores the hashed password, and returns initial access + refresh tokens. |
-| `POST /login` | `{ "email": "user@example.com", "password": "P@ssw0rd" }` | Verifies credentials, issues new token pair, and persists the refresh token. |
+| `POST /register` | `{ "email": "user@example.com", "password": "P@ssw0rd" }` | Creates a user (password hashed with BCrypt) and confirms registration. |
+| `POST /login` | `{ "email": "user@example.com", "password": "P@ssw0rd" }` | Verifies credentials and issues an access + refresh token pair. |
 | `POST /refresh` | `{ "refreshToken": "<token>" }` | Validates the refresh token and returns a new token pair. |
+
+### Register a User
+
+```bash
+curl -X POST http://localhost:3000/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{ "email": "testing@gmail.com", "password": "Haren123" }'
+```
+
+Response:
+
+```json
+{
+  "userId": 4,
+  "email": "testing@gmail.com",
+  "message": "User successfully registered"
+}
+```
 
 ### Response Shape
 
